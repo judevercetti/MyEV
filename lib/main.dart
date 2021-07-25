@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:myev/battery_health_page.dart';
-import 'package:myev/charging_status_page.dart';
-import 'package:myev/temperature_page.dart';
+import 'package:myev/pages/battery_health_page.dart';
+import 'package:myev/pages/charging_status_page.dart';
+import 'package:myev/pages/login_page.dart';
+import 'package:myev/pages/temperature_page.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // FirebaseFirestore.instance.useFirestoreEmulator("localhost", 8080);
+  // FirebaseFirestore.instance.enableNetwork();
+  runApp(const MyEV());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyEV extends StatelessWidget {
+  const MyEV({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +25,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: const MyHomePage(title: 'Charging Status'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
